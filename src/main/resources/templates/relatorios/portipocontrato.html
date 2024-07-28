@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+<title>Relatório por tipo</title>
+</head>
+<body>
+	<section  layout:fragment="corpo">
+		<div class="container border border-dark bg-white">
+			<h1>Relatório de contratos por tipo contrato</h1>
+			
+			<form th:action="@{/relatorio/tipocontrato/gerar}" target="_blank"  method="get">
+				<div class="form-row">
+					<div class="form-group col-md-4">
+						<label for="centrocusto">Centro de Custo</label>
+						<select class="form-control form-control-sm" id="centrocusto" name="centroDeCusto" >
+							 <option label="Todos" value=""></option>
+		              		<option th:each="c : ${centrocusto}" th:value="${c.id}" th:text="${c.codigo + ' - ' + c.descricao}"></option>
+						</select>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-3">
+						<label for="Unidade">Unidade</label>
+						<select class="form-control form-control-sm " id="unidade" name="unidade" >
+							<option label="Todos" value=""></option>
+							<option th:each="u : ${unidades}" th:value="${u.id}" th:text="${u.nome}"></option>
+						</select>
+					</div>
+				</div>
+				<div class="form-row">
+					<div class="form-group col-md-2">
+						<label for="dataInicio">Data início</label> 
+						<input id="dataInicio" class="form-control form-control-sm" type="date" name="dataInicio"/>
+					</div>
+					<div class="form-group col-md-2">
+						<label for="dataFim">Data fim</label> 
+						<input id="dataFim" class="form-control form-control-sm" type="date" name="dataFim"/>
+					</div>
+				</div>
+
+				<button type="submit"  class="btn btn-primary" >Gerar</button>
+				<hr/>
+			</form>
+		</div>
+		
+	</section>
+</body>
+</html>

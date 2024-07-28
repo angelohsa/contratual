@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<section layout:fragment="corpo">
+	<div class="container border border-dark bg-white">
+	
+		<div class="container">
+		<h1>Cadastro de Empresa</h1>
+			<form
+				th:action="${empresa.id == null} ? @{/empresa/salvar} : @{/empresa/editar}"
+				method="post" th:object="${empresa}">
+				<input type="hidden" th:field="*{id}" />
+				
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="nome">Nome</label>
+						<input class="form-control" type="text" id="nome" th:field="*{nome}" />
+					</div>
+				</div>
+				
+				<div  class="form-row">
+					<div class="form-group col-md-6">
+						<label for="numero">Código</label>
+						<input class="form-control" type="text" id="numero" th:field="*{numero}" />
+					</div>
+				</div>
+				<div class="form-group form-check">
+					
+					<input class="form-check-input" type="checkbox" id="inativo" th:field="*{inativo}" />
+					<label class="form-check-label" for="inativo">Inativo</label>
+				</div>
+				<button type="submit"  class="btn btn-outline-success" >Salvar</button>
+				 <a th:href="@{/}" role="button" class="btn btn-outline-danger">Cancelar</a>
+			</form>
+		</div>
+		<hr/>
+		<div class="container">
+			<table class="table table-sm">
+				<thead class="thead-light">
+					<tr>
+						<th>ID</th>
+						<th>Nome</th>
+						<th>Código AX</th>
+						<th>Inativo</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="e : ${empresas}">
+						<td th:text="${e.id}"></td>
+						<td th:text="${e.nome}"></td>
+						<td th:text="${e.numero}"></td>
+						<td th:text="${e.inativo}"></td>
+						<td><a th:href="@{/empresa/editar/{id} (id = ${e.id})}">Editar</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	</section>
+</body>
+</html>

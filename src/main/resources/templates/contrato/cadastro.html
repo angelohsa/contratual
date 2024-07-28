@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<section  layout:fragment="corpo">
+	
+	<div class="container border border-dark bg-white">
+	
+		<div class="container" >
+			<h1 th:if="${contrato.id == null}">Cadastrar Contrato</h1>
+			<h1 th:if="${contrato.id != null && aditivo == null && distrato == null}">Editar Contrato</h1>
+			<h1 th:if="${aditivo}" >Lançar Aditivo</h1>
+			<h1 th:if="${distrato}" >Lançar Distrato</h1>
+	
+			<form th:action="${contrato.id == null} ? @{/contrato/salvar} : @{/contrato/editar}" th:object="${contrato}" method="post">
+				<input type="hidden" th:field="*{id}" />
+				<input type="hidden" th:field="*{dataCriacao}">
+				<input th:if="not ${aditivo}" type="hidden" th:field="*{codigoAditivo}">
+				<input th:if="not ${aditivo}" type="hidden" th:field="*{dataInicioAditivo}">
+				<input th:if="not ${aditivo}" type="hidden" th:field="*{dataFimAditivo}">
+				
+				<input th:if="not ${distrato}" type="hidden" th:field="*{codigoDistrato}">
+				<input th:if="not ${distrato}" type="hidden" th:field="*{dataDistrato}">
+				
+				<input th:if="${aditivo} or ${distrato}" type="hidden" th:field="*{tipoContrato.id}">
+				<input th:if="${aditivo} or ${distrato}" type="hidden" th:field="*{emissor}">
+				<input th:if="${aditivo} or ${distrato}" type="hidden" th:field="*{unidade.id}">
+				<input th:if="${aditivo} or ${distrato}" type="hidden" th:field="*{departamento.id}">
+				<input th:if="${aditivo} or ${distrato}" type="hidden" th:field="*{centroDeCusto.id}">
+				
+				
+				<div th:if="${aditivo}" class="form-row">
+					<div  class="form-group col-md-3">
+							<label for="codigoAditivo">Código Aditivo</label> 
+							<input id="codigoAditivo" class="form-control form-control-sm" type="text" name="codigoAditivo" />
+					</div>
+					<div class="form-group col-md-2">
+						<label for="dataInicioAditivo">Data início aditivo</label> 
+						<input id="dataInicioAditivo" class="form-control form-control-sm" type="date" name="dataInicioAditivo"/>
+					</div>
+					<div class="form-group col-md-2">
+						<label for="dataFimAditivo">Data fim aditivo</label> 
+						<input id="dataFimAditivo" class="form-control form-control-sm" type="date" name="dataFimAditivo"/>
+					</div>
+				</div>
+				
+				<div th:if="${distrato}" class="form-row">
+					<div  class="form-group col-md-3">
+							<label for="codigoDistrato">Código distrato</label> 
+							<input id="codigoDistrato" class="form-control form-control-sm" type="text" name="codigoDistrato" />
+					</div>
+					<div class="form-group col-md-2">
+						<label for="dataDistrato">Data distrato</label> 
+						<input id="dataDistrato" class="form-control form-control-sm" type="date" name="dataDistrato"/>
+					</div>
+				</div>
+				
+				<div class="form-row">
+					<div class="form-group col-md-3">
+						<label for="tipocontrato">Tipo Registro</label>
+						<select class="form-control form-control-sm " id="tipoRegistro" th:field="*{tipoRegistro}" >
+							<option value=""></option>
+							<option th:each="t : ${tiposRegistro}" th:value="${t}" th:text="${t.descricao}"></option>
+						</select>
+					</div>
+					<div class="form-group col-md-3">
+						<label for="tipocontrato">Tipo Contrato</label>
+						<select class="form-control form-control-sm " id="tipoContrato" th:field="*{tipoContrato}" 
+						th:attrappend="disabled=(${aditivo} or ${distrato})?disabled">
+							<option value=""></option>
+							<option th:each="t : ${tiposcontrato}" th:value="${t.id}" th:text="${t.tipo}"></option>
+						</select>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="tipoEspecifico">Tipo específico</label> 
+						<input id="tipoEspecifico" class="form-control form-control-sm" type="text" th:field="*{tipoEspecifico}"
+						th:readonly="${aditivo} or ${distrato} "/>
+					</div>
+					
+				</div>
+				
+				<div class="form-row">
+					<div class="form-group col-md-3">
+						<label for="unidade">Unidade</label>
+						<select class="form-control form-control-sm" id="unidade" th:field="*{unidade}"
+						th:attrappend="disabled=(${aditivo} or ${distrato})?disabled">
+							<option value=""></option>
+		            		<option th:each="u : ${unidades}" th:value="${u.id}" th:text="${u.nome}"></option>
+						</select>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="departamento">Departamento</label>
+						<select class="form-control form-control-sm" id="departamento"  th:field="*{departamento}"
+						th:attrappend="disabled=(${aditivo} or ${distrato})?disabled">
+							  <option value=""></option>
+		            		  <option th:each="d : ${departamentos}" th:value="${d.id}" th:text="${d.nome}"></option>
+						</select>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="centrocusto">Centro de Custo</label>
+						<select class="form-control form-control-sm" id="centrocusto"  th:field="*{centroDeCusto}"
+						th:attrappend="disabled=(${aditivo} or ${distrato})?disabled">
+							 <option value=""></option>
+		              		<option th:each="c : ${custos}" th:value="${c.id}" th:text="${c.codigo + ' - ' + c.descricao}"></option>
+						</select>
+					</div>
+				</div>
+		
+				<div class="form-row">
+					<div class="form-group col-md-2">
+						<label for="emissor">Emissor</label>
+						<select class="form-control form-control-sm" id="emissor" th:field="*{emissor}"
+						th:attrappend="disabled=(${aditivo} or ${distrato})?disabled">
+							<option value=""></option>
+		              		<option th:each="e : ${emissor}" th:value="${e}" th:text="${e.descricao}"></option>
+						</select>
+					</div>
+				
+				<!-- 
+				
+					<div class="form-group col-md-6">
+						<label for="razaoSocial">Razão social</label> 
+						<input id="razaoSocial" class="form-control form-control-sm" type="text" 
+						th:readonly="${aditivo} or ${distrato} "/>
+					</div>
+				
+					<div class="form-group col-md-3">
+						<label for="cnpj">CNPJ</label> 
+						<input id="cnpj" class="form-control form-control-sm" type="text" 
+						th:readonly="${aditivo} or ${distrato} "/>
+					</div>
+				
+					
+
+				 -->
+				
+					<div class="form-group col-md-6">
+						<label for="entidade">Entidade</label>
+						<select class="form-control form-control-sm" id="entidade" th:field="*{contraparte}">
+							 <option value=""></option>
+		             		 <option th:each="c : ${contrapartes}" th:value="${c.id}" th:text="${c.razaoSocial}"></option>
+						</select>
+					</div>
+				</div>
+		
+				<div class="form-row">
+					<div class="form-group col-md-4">
+						<label for="codigoProcesso">Código Processo</label> 
+						<input id="codigoProcesso" class="form-control form-control-sm" type="text" th:field="*{codigoProcesso}"
+						th:readonly="${aditivo} or ${distrato}"/>
+					</div>
+					<div class="form-group col-md-4">
+						<label for="codigoContrato">Código Contrato</label> 
+						<input id="codigoContrato" class="form-control form-control-sm" type="text" th:field="*{codigoContrato}"
+						th:readonly="${aditivo} or ${distrato}"/>
+					</div>
+				</div>
+				
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="responsavel">Responsável</label> 
+						<input id="responsavel" class="form-control form-control-sm" type="text" th:field="*{responsavel}"
+						th:readonly="${aditivo} or ${distrato}"/>
+					</div>
+				</div>
+					
+				<div class="form-row">
+					<div class="form-group col-md-2">
+						<label for="dataInicio">Data início</label> 
+						<input id="dataInicio" class="form-control form-control-sm" type="date" th:field="*{dataInicio}"
+						th:readonly="${distrato}"/>
+					</div>
+					<div class="form-group col-md-2">
+						<label for="dataFim">Data fim</label> 
+						<input id="dataFim" class="form-control form-control-sm" type="date" th:field="*{dataFim}"
+						th:readonly="${distrato}"/>
+					</div>
+					<div class="form-group col-md-2">
+						<label for="fidelidade">Meses de fidelidade</label> 
+						<input id="fidelidade" class="form-control form-control-sm" type="text" th:field="*{fidelidade}"
+						th:readonly="${distrato}"/>
+					</div>
+					
+				</div>
+	
+				<div class="form-row">
+					
+					<div class="form-group form-check">
+						<input id="renovacaoAutomatica" class="form-check-input" type="checkbox" th:field="*{renovacaoAutomatica}" 
+						th:readonly="${distrato}"/>
+						<label for="renovacaoAutomatica" class="form-check-label">Renovação automática</label>
+					</div>
+				</div>
+				
+				<div class="form-row">
+					
+					<div class="form-group form-check">
+						<input id="possuiDocumento" class="form-check-input" type="checkbox" th:field="*{possuiDocumento}" />
+						<label for="possuiDocumento" class="form-check-label">Possui documento</label>
+					</div>
+				</div>
+				
+				<div class="form-row">
+					<div class="form-group col-md-6">
+						<label for="valor">Valor total</label> 
+						<input id="valor" class="form-control form-control-sm" type="text" th:field="*{valor}"
+						th:readonly="${distrato}" data-mask="#.##0,00"/>
+					</div>
+				</div>
+				
+				<div class="form-row">
+					<div class="form-group">
+						<label for="observacoes">Observações</label> 
+						<textarea id="observacoes" class="form-control form-control-sm" rows="5" cols="80" th:field="*{observacoes}" ></textarea>
+					</div>
+				</div>
+		
+				<button type="submit"  class="btn btn-outline-success" >Salvar</button>
+				<a th:href="@{/}" role="button" class="btn btn-outline-danger">Cancelar</a>
+			
+			</form>
+		</div>
+	</div>
+	</section>
+</body>
+</html>

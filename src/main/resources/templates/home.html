@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div layout:fragment="corpo">
+		<div class="container">
+			<h1>Contratual - Sistema de controle de contratos</h1>
+			<div class="card-columns">
+				<div class="card border-dark " style="max-width: 21rem;">
+					<div class="card-header">Contratos a vencer em menos de ...</div>
+					<ul  class="list-group list-group-flush">
+						<li th:text="${venc.get(0).toString() + ' contratos em 30 dias'}"  class="list-group-item">0 contratos em 30 dias</li>
+						<li th:text="${venc.get(1).toString() + ' contratos em 60 dias'}"  class="list-group-item">0 contratos em 60 dias</li>
+						<li th:text="${venc.get(2).toString() + ' contratos em 90 dias'}"  class="list-group-item">0 contratos em 90 dias</li>
+					</ul>
+				</div>
+				<div class="card border-dark " style="max-width: 21rem;">
+					<div class="card-header">Quantidade de registros</div>
+					<ul th:each=" q : ${qtdeReg}" class="list-group list-group-flush">
+						<li th:text="${q[1] + ' ' + q[0]}" class="list-group-item">1015 Contratos</li>
+					</ul>
+				</div>
+				<div class="card border-dark " style="max-width: 21rem;">
+					<div class="card-header">Quantidade por centro de custo</div>
+					<ul th:each="q : ${qtdeCentro}" class="list-group list-group-flush">
+						<li th:text="${q[0] + ': ' + q[1]}" class="list-group-item">8.01.03 - 15 processos</li>
+					</ul>
+				</div>
+
+				<div class="card border-dark " style="max-width: 21rem;">
+					<div class="card-header">Quantidade por tipo</div>
+					<ul th:each="q : ${qtdeTipo}" class="list-group list-group-flush">
+						<li th:text="${q[0] + ': ' + q[1]}" class="list-group-item">1015 Contratos</li>
+					</ul>
+				</div>
+				
+				<div class="card border-dark " style="max-width: 21rem;">
+					<div class="card-header">Quantidade por unidade</div>
+					<ul th:each="q : ${qtdeUnid}" class="list-group list-group-flush">
+						<li th:text="${q[0] + ': ' + q[1]}" class="list-group-item">Unidade</li>
+					</ul>
+				</div>
+				
+				
+				
+			</div>
+
+			<div class="card-group">
+				
+			</div>
+		</div>
+	</div>
+</body>
+</html>

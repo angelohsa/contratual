@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Contratual - Relatório por tipo de contrato</title>
+<link rel="icon" th:href="@{/img/cont.ico}" />
+<!-- Bootstrap core CSS -->
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+</head>
+<body>
+	<div class="container">
+		<h1>Relatório de quantidade e valores por tipo de contrato</h1>
+		<hr />
+
+		<div th:if="${unid.nome != null}" th:text="'Unidade: ' + ${unid.nome}"></div>
+		<div th:if="${centroC.descricao != null}"
+			th:text="'Centro de custo: ' + ${centroC.codigo} + ' - ' + ${centroC.descricao}"></div>
+		<div th:if="${dataI != null}" >
+			<span th:text="'Data início: ' +  ${#temporals.format(dataI, 'dd/MM/yyyy')}" ></span>
+		</div>
+		<div th:if="${dataF != null}" >
+			<span th:text="'Data fim: ' +  ${#temporals.format(dataF, 'dd/MM/yyyy')}"></span>
+		</div>
+		<hr/>
+		<table class="table table-sm">
+			<thead class="thead-light">
+				<tr>
+					<th>Tipo de contrato</th>
+					<th>Quantidade</th>
+					<th>Valor</th>
+
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr th:each="r : ${resultado}">
+					<td th:text="${r.get(0)}"></td>
+					<td th:text="${r.get(1)}"></td>
+					<td ><span th:text="${#numbers.formatDecimal(r.get(2), 3 , 'POINT',2,'COMMA')}">10.00</span></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>

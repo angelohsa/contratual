@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns="http://www.w3.org/1999/xhtml" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+<meta charset="UTF-8">
+<title>Contratual - Sistema de controle de contratos</title>
+<link rel="icon" th:href="@{/img/cont.ico}" />
+
+<!-- Bootstrap core CSS -->
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+<link th:href="@{/webjars/open-iconic/font/css/open-iconic-bootstrap.min.css}" rel="stylesheet" />
+</head>
+<body class="bg-light">
+	<header th:replace="~{fragments/header :: cabecalho}">
+		<div>header</div>
+	</header>
+	<div class="layout-main">
+	<section layout:fragment="corpo">
+	
+	</section>
+	
+	</div>
+	
+	<footer >
+		
+	</footer>
+	
+
+	
+	<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+
+	<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

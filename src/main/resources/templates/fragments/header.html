@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<header th:fragment="cabecalho">
+	<!-- 
+	
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	 -->
+		<nav class="navbar  navbar-expand-lg navbar-light" style="background-color:  #e6f0ff ;">
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" th:href="@{/}">
+							<img alt="..." th:src="@{/img/home30.png}">
+						</a>
+						
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" th:href="@{/}">Home
+							<span class="sr-only">(current)</span>
+						</a>
+					</li>
+					<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> Contrato </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item" th:href="@{/contrato/cadastrar}">Criar</a> 
+							<a class="dropdown-item" th:href="@{/contrato/pesquisar}">Pesquisar</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> Cadastros </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" th:href="@{/centrocusto/cadastrar}">Centro de custo</a>
+							<a class="dropdown-item" th:href="@{/departamento/cadastrar}">Departamento</a> 
+							<a class="dropdown-item" th:href="@{/empresa/cadastrar}">Empresas</a>
+							<a class="dropdown-item" th:href="@{/contraparte/cadastrar}">Entidades</a>
+							<a class="dropdown-item" th:href="@{/tipocontrato/cadastrar}">Tipos de Contrato</a>
+							<a class="dropdown-item" th:href="@{/unidade/cadastrar}">Unidades</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> Relatórios </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a title="Relatório por unidade, mostra quantidade e valores por loja de acordo com o período selecionado" class="dropdown-item" th:href="@{/relatorio/unidade}">Por unidade</a>
+							<a title="Mostra quantidade e valores de contratos por entidade e por tipo de contrato de acordo com o período e lojas selecionados" class="dropdown-item" th:href="@{/relatorio/entidade}">Por entidades</a>
+							<a title="Mostra a quantidade e soma dos valores por tipo de contrato" class="dropdown-item" th:href="@{/relatorio/tipocontrato}">Por tipos de contrato</a>
+							<a title="Mostra a quantidade e valores por centro de custo" class="dropdown-item" th:href="@{/relatorio/centrodecusto}">Por centro de custo</a>
+							<a title="Mostra os relatórios a vencer nos próximos 90 dias" class="dropdown-item" th:href="@{/relatorio/porvencimento}">Por vencimento</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+</body>
+</html>

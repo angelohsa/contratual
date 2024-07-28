@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<section  class="layout-content" layout:fragment="corpo">
+	
+		<div class="container border border-dark bg-white">
+			<div class="container ">
+				<h1>Cadastro de Centros de Custo</h1>
+				<form
+					th:action="${centroDeCusto.id == null} ? @{/centrocusto/salvar} : @{/centrocusto/editar}"
+					th:object="${centroDeCusto}" method="post">
+	
+					<input type="hidden" th:field="*{id}" />
+					<div class="form-row">
+						<div class="form-group col-md-3">
+							<label for="codigo">Código</label> <input class="form-control form-control-sm"
+								type="text" id="codigo" th:field="*{codigo}" />
+						</div>
+							<div class="form-group col-md-6">
+							<label for="descricao">Descrição</label> <input
+								class="form-control form-control-sm" type="text" id="descricao"
+								th:field="*{descricao}" />
+						</div>
+					</div>
+					<div class="form-group form-check">
+						<input type="checkbox" class="form-check-input" id="inativo"
+							th:field="*{inativo}" /> <label class="form-check-label" for="inativo">Inativo</label>
+					</div>
+					<button type="submit"  class="btn btn-outline-success" >Salvar</button>
+					<a th:href="@{/}" role="button" class="btn btn-outline-danger">Cancelar</a>
+				</form>
+			</div>
+		<hr>
+		<div class="container">
+			<table class="table table-sm">
+				<thead class="thead-light">
+					<tr>
+						<th>ID</th>
+						<th>Código</th>
+						<th>Descrição</th>
+						<th>Inativo</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="c : ${centros}">
+						<td th:text="${c.id}"></td>
+						<td th:text="${c.codigo}"></td>
+						<td th:text="${c.descricao}"></td>
+						<td th:text="${c.inativo}"></td>
+						<td><a th:href="@{/centrocusto/editar/{id} (id=${c.id}) }">editar</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	
+		</div>
+	</section>	
+</body>
+</html>

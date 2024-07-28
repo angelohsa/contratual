@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Contratual - Relatório por vencimento</title>
+<link rel="icon" th:href="@{/img/cont.ico}" />
+<!-- Bootstrap core CSS -->
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet" />
+</head>
+<body>
+	<div class="container">
+	<h1>Relatório de processos a vencer nos próximos 90 dias </h1>
+	<hr/>
+	<div th:if="${tipoC.tipo != null}" th:text="'Tipo contrato: ' + ${tipoC.tipo}"></div>
+	<div th:if="${unid.nome != null}" th:text="'Unidade: ' + ${unid.nome}"></div>
+	<div th:if="${centroC.descricao != null}" th:text="'Centro de custo: ' + ${centroC.codigo} + ' - ' + ${centroC.descricao}"></div>
+	
+	<table class="table table-sm">
+				<thead class="thead-light">
+					<tr>
+						<th>Processo</th>
+						<th>Contrato</th>
+						<th>Entidade</th>
+						<th>Tipo</th>
+						<th>Unidade</th>
+						<th>Data fim</th>
+					</tr>
+				</thead>
+				<tbody  >
+					
+					<tr th:each="r : ${resultado}" >
+						<td th:text="${r.get(0)}"></td>
+						<td th:text="${r.get(1)}"></td>
+						<td th:text="${r.get(2)}"></td>
+						<td th:text="${r.get(3)}"></td>
+						<td th:text="${r.get(4)}"></td>
+						<td th:text="${#temporals.format(r.get(5), 'dd/MM/yyyy')}">
+							
+						</td>
+					</tr>
+				</tbody>
+			</table>
+	</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<section  layout:fragment="corpo">
+	<div class="container border border-dark bg-white">
+		
+		<div class="container">
+		<h1>Cadastro de Departamento</h1>
+		<form th:action="${departamento.id == null} ? @{/departamento/salvar} : @{/departamento/editar}"
+		 method="post" th:object="${departamento}">
+			<input type="hidden" id="id" th:field="*{id}"/>
+			<div class="form-row">
+				<div class="form-group col-md-6">
+					<label for="nome">Nome</label>
+					<input class="form-control form-control-sm" type="text" id="nome" th:field="*{nome}" />	
+				</div>
+			</div>
+			
+			<button type="submit"  class="btn btn-outline-success" >Salvar</button>
+			<a th:href="@{/}" role="button" class="btn btn-outline-danger">Cancelar</a>
+		</form>
+		</div>
+		<hr />
+		<div class="container">
+			<table class="table table-sm">
+				<thead class="thead-light">
+					<tr>
+						<th>ID</th>
+						<th>Nome</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="d : ${deptos}">
+						<td th:text="${d.id}"></td>
+						<td th:text="${d.nome}"></td>
+						<td><a th:href="@{/departamento/editar/{id} (id = ${d.id})}">Editar</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	</section>
+</body>
+</html>

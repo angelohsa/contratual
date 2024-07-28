@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+	<div layout:fragment="corpo">
+		
+		<div class="container border bg-white">
+			<h1>Contratos</h1>
+			<div>
+				<form th:action="@{/contrato/buscar}" method="get" th:object="${contrato}">
+					 <div class="form-group row">
+					    <label for="codigoProcesso" class="col-sm-2 col-form-label">Código processo</label>
+					    <div class="col-sm-2">
+					      <input type="text" class="form-control form-control-sm" id="codigoProcesso" th:field="*{codigoProcesso}">
+					    </div>
+					      <label for="codigoContrato" class="col-sm-2 col-form-label">Código Contrato</label>
+					    <div class="col-sm-2">
+					      <input type="text" class="form-control form-control-sm" id="codigoContrato" th:field="*{codigoContrato}">
+					    </div>
+					</div>
+					
+					<div class="form-group row">
+					    <label for="tipocontrato" class="col-sm-2 col-form-label">Tipo de contrato</label>
+					    <div class="col-sm-4">
+					      <select class="form-control form-control-sm" id="tipocontrato" th:field="*{tipoContrato}">
+								<option value=""></option>
+								<option th:each="t : ${tiposcontrato}" th:value="${t.id}" th:text="${t.tipo}"></option>
+							</select>
+					    </div>
+					</div>
+
+					<div class="form-group row">
+					    <label for="emissor" class="col-sm-2 col-form-label">Emissor</label>
+					    <div class="col-sm-2">
+					     <select class="form-control form-control-sm" id="emissor" th:field="*{emissor}">
+								<option value=""></option>
+			              		<option th:each="e : ${emissor}" th:value="${e}" th:text="${e.descricao}"></option>
+							</select>
+					    </div>
+					    <label for="contraparte" class="col-sm-2 col-form-label">Entidade</label>
+					    <div class="col-sm-4">
+					      <input type="text" class="form-control form-control-sm" id="contraparte" th:field="*{contraparte}">
+					    </div>
+					</div>
+					
+					
+					 <div class="form-group row">
+					    <label for="dataInicio" class="col-sm-2 col-form-label">Data início</label>
+					    <div class="col-sm-2">
+					      <input id="dataInicio" class="form-control form-control-sm" type="date" th:field="*{dataInicio}"/>
+					    </div>
+					      <label for="dataFim" class="col-sm-2 col-form-label">Data fim</label>
+					    <div class="col-sm-2">
+					     <input id="dataFim" class="form-control form-control-sm" type="date" th:field="*{dataFim}"/>
+					    </div>
+					</div>
+					
+					
+					
+					
+					
+					
+					
+					<div class="form-group row">
+					    <label for="centroDeCusto" class="col-sm-2 col-form-label">Centro de custo</label>
+					    <div class="col-sm-4">
+					     <select class="form-control form-control-sm" id="centroDeCusto" th:field="*{centroDeCusto}">
+								<option value=""></option>
+			              		<option th:each="c : ${custos}" th:value="${c.id}" th:text="${c.codigo + ' - ' +c.descricao}"></option>
+							</select>
+					    </div>
+					</div>
+
+					<div class="form-group row">
+					    <label for="departamento" class="col-sm-2 col-form-label">Departamento</label>
+					    <div class="col-sm-4">
+					     <select class="form-control form-control-sm" id="departamento" th:field="*{departamento}">
+								<option value=""></option>
+			              		<option th:each="d : ${departamentos}" th:value="${d.id}" th:text="${d.nome}"></option>
+							</select>
+					    </div>
+					</div>
+
+					<div class="form-group row">
+					    <label for="unidade" class="col-sm-2 col-form-label">Unidade</label>
+					    <div class="col-sm-4">
+					     <select class="form-control form-control-sm" id="unidade" th:field="*{unidade}">
+								<option value=""></option>
+			              		<option th:each="u : ${unidades}" th:value="${u.id}" th:text="${u.nome}"></option>
+							</select>
+					    </div>
+					</div>
+					
+				<button type="submit"  class="btn btn-primary" >Buscar</button>
+				</form>
+			</div>
+			
+			<hr/>
+			
+			<table class="table table-sm">
+				<thead class="thead-light">
+					<tr>
+						<th>Processo</th>
+						<th>Unidade</th>
+						<th>Tipo</th>
+						<th>F/C</th>
+						<th>Entidade</th>
+						
+						<th>Centro Custo</th>
+						<th>Valor</th>
+						<th>Ativo</th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody  >
+					
+					<tr th:each="c : ${contratos}" >
+						<td th:text="${c.codigoProcesso}"></td>
+						<td th:text="${c.unidade.nome}"></td>
+						<td th:text="${c.tipoContrato.tipo}"></td>
+						<td th:text="${c.contraparte.tipoEntidade}"></td>
+						<td th:text="${c.contraparte.razaoSocial}"></td>
+						<td th:text="${c.centroDeCusto.descricao}"></td>
+						<td th:text="${c.valor}"></td>
+						<td ></td>
+						<td><a th:href="@{/contrato/editar/{id} (id=${c.id}) }">E</a></td>
+						<td><a th:href="@{/contrato/lancaraditivo/{id} (id=${c.id}) }">A</a></td>
+						<td><a th:href="@{/contrato/lancardistrato/{id} (id=${c.id}) }">D</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

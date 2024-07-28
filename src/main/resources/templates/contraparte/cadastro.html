@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8">
+</head>
+<body>
+
+	<section layout:fragment="corpo">
+	<div class="container border border-dark bg-white">
+	
+		<div class="container ">
+		
+		
+			<h1>Cadastro de Entidades</h1>
+			<form th:action="${contraparte.id == null} ? @{/contraparte/salvar} : @{/contraparte/editar}" 
+			th:object="${contraparte}" method="post">
+				<input type="hidden" th:field="*{id}" />
+				
+				<div  class="form-row">
+					<div class="form-group">
+						<label for="tipo">Tipo</label>
+						<select class="form-control form-control-sm" id="tipo" th:field="*{tipoEntidade}">
+			              <option value=""></option>
+			              <option th:each="t : ${tiposEntidade}" th:value="${t}" th:text="${t.descricao}"></option>
+			         	</select>
+					</div>
+					<div class="form-group col-md-2">
+						<label for="codigoContraparte">Código AX</label>
+						<input class="form-control form-control-sm" type="text" id="codigoContraparte" th:field="*{codigoContraparte}" />
+					</div>
+				</div>
+	
+				<div  class="form-row">
+					<div class="form-group col-md-2">
+						<label for="cnpjcpfnum">CNPJ</label>
+						<input class="form-control form-control-sm" type="text" id="" th:field="*{cnpjcpfnum}" />
+					</div>
+					<div class="form-group col-md-6">
+						<label for="razaoSocial">Razão Social</label>
+						<input class="form-control form-control-sm" type="text" id="" th:field="*{razaoSocial}" />
+					</div>
+				</div>
+	
+				<button type="submit"  class="btn btn-outline-success" >Salvar</button>
+				<a th:href="@{/}" role="button" class="btn btn-outline-danger">Cancelar</a>
+			</form>
+		</div>
+		<hr>
+		<div class="container">
+				<table class="table table-sm">
+				<thead class="thead-light">
+					<tr>
+						<th>ID</th>
+						<th>Tipo</th>
+						<th>Codigo AX</th>
+						<th>CNPJ</th>
+						<th>Razão social</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="c : ${contrapartes} ">
+						<td th:text="${c.id}"></td>
+						<td th:text="${c.tipoEntidade}"></td>
+						<td th:text="${c.codigoContraparte}"></td>
+						<td th:text="${c.cnpjcpfnum}"></td>
+						<td th:text="${c.razaoSocial}"></td>
+						<td><a th:href="@{/contraparte/editar/{id} (id=${c.id}) }">editar</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	</section>
+</body>
+</html>
